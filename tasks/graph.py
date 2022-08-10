@@ -45,8 +45,6 @@ class Graph:
         retur.append(self._root)
         visited = set()
         visited.add(self._root)
-        # Recur for all the vertices
-        # adjacent to this vertex
         for neighbour in self._root.outbound:
             if neighbour not in visited:
                 self.DFSUtil(neighbour, visited,retur)
