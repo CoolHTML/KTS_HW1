@@ -1,4 +1,5 @@
 from typing import TypeVar
+from collections import Counter
 
 __all__ = (
     'flip_kv_vk',
@@ -8,6 +9,14 @@ __all__ = (
 
 KT = TypeVar('KT')
 KV = TypeVar('KV')
+
+def get_key(d, value):
+    res=[]
+    for k, v in d.items():
+        if v == value:
+            res.append(k)
+    print(res)
+    return res
 
 
 def flip_kv_vk(d: dict[KT, KV]) -> dict[KV, KT]:
@@ -23,8 +32,9 @@ def flip_kv_vk(d: dict[KT, KV]) -> dict[KV, KT]:
         'Москва': 'moscow',
     }
     """
-    raise NotImplementedError
-
+    dict_return = {value: key for key, value in d.items()}
+    return dict_return
+#flip_kv_vk(d={'1':22,'33':2})
 
 def flip_kv_vk_safe(d: dict[KT, KV]) -> dict[KV, list[KT]]:
     """
@@ -39,4 +49,8 @@ def flip_kv_vk_safe(d: dict[KT, KV]) -> dict[KV, list[KT]]:
         '+3': ['Москва', 'Санкт-Петербург'],
     }
     """
-    raise NotImplementedError
+    counter = (Counter(d.values()))
+    result = {}
+    for k, v in counter.items():
+        result[k] = get_key(d, k)
+    return (result)
